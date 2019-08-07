@@ -7,7 +7,7 @@ const Workouts = (props) => {
   return (
     <>
       {workouts.map(workout => {
-        return <Workout workout={workout} key={workout._id}/>
+        return <Workout workout={workout} key={workout._id} clickHandler={props.clickHandler}/>
       })}
     </>
   )

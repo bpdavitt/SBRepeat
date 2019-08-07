@@ -13,6 +13,12 @@ class App extends React.Component {
       planned: [],
       processed: {}
     }
+    this.workoutClickHandler = this.workoutClickHandler.bind(this);
+  }
+
+  workoutClickHandler(e, workout) {
+    console.log('You clicked a workout')
+    console.log(workout)
   }
 
   processData(data) {
@@ -61,11 +67,11 @@ class App extends React.Component {
         <Row>
           <Col id="planned-col">Planned Workouts
           <br></br>
-            <Workouts workouts={this.state.planned}></Workouts>
+            <Workouts workouts={this.state.planned} clickHandler={this.workoutClickHandler}></Workouts>
           </Col>
           <Col id="completed-col">Completed Workouts
           <br></br>
-            <Workouts workouts={this.state.completed}></Workouts>
+            <Workouts workouts={this.state.completed} clickHandler={this.workoutClickHandler}></Workouts>
           </Col>
 
         </Row>
