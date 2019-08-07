@@ -1,0 +1,27 @@
+/* .container {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+} */
+
+#app {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#banner {
+  justify-content: center;
+}
+
+#planned-col {
+  display: flex;
+  justify-content: center;
+}
+
+#completed-col {
+  display: flex;
+  justify-content: center;
+}
