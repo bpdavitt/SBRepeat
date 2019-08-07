@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
+import Workouts from './components/Workouts.jsx'
 
 
 class App extends React.Component {
@@ -58,8 +59,15 @@ class App extends React.Component {
           <div>SBRepeat has mounted</div>
         </Row>
         <Row>
-          <Col id="planned-col">Planned Workouts</Col>
-          <Col id="completed-col">Completed Workouts</Col>
+          <Col id="planned-col">Planned Workouts
+          <br></br>
+            <Workouts workouts={this.state.planned}></Workouts>
+          </Col>
+          <Col id="completed-col">Completed Workouts
+          <br></br>
+            <Workouts workouts={this.state.completed}></Workouts>
+          </Col>
+
         </Row>
       </Container>
     )

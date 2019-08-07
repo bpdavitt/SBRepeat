@@ -17,11 +17,23 @@
 }
 
 #planned-col {
-  display: flex;
-  justify-content: center;
+  display: block;
+  text-align: center;
 }
 
 #completed-col {
-  display: flex;
-  justify-content: center;
+  display: block;
+  text-align: center;
+}
+
+#banner {
+  width: 100%;
+}
+
+.workout {
+  border: 1px solid black;
+}
+
+.workout-image {
+  max-width: 100px;
 }
