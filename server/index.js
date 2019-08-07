@@ -14,10 +14,10 @@ app.get('/', (req, res) => {
 app.post('/workouts', (req, res) => {
   db.addOne(req.body)
     .then((data) => {
-      console.log(data)
-      res.send('Product added')
+      // console.log(data)
+      res.send(data)
     })
-    .catch(()=> res.end())
+    .catch(() => res.end())
 })
 
 app.get('/workouts', (req, res) => {
@@ -25,6 +25,19 @@ app.get('/workouts', (req, res) => {
     .then(data => {
       res.send(data);
     })
+    .catch(err => {
+      res.status(404).send();
+    })
+})
+
+app.put('/workouts/:_id', (req, res) => {
+  console.log(req.params)
+  db.modOne(req.body)
+    .then((data) => {
+      // console.log(data)
+      res.send(data)
+    })
+    .catch(() => res.end())
 })
 
 app.listen(PORT, () => console.log('SBRepeat server running on port', PORT))

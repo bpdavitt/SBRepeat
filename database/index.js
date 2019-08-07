@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const config = require('../config.js')
 
-mongoose.connect(config.DBURI, { user: config.DBUSER, pass: config.DBPASS, useNewUrlParser: true }, () => {
-  console.log('Database connected')
+mongoose.connect(config.DBURI, { user: config.DBUSER, pass: config.DBPASS, useNewUrlParser: true, useFindAndModify: false }, (err) => {
+  if (err) {
+    console.log("Error Connecting:", err)
+  } else {
+    console.log('Database connected')
+  }
 })
 
 const workoutSchema = mongoose.Schema({
@@ -12,7 +16,8 @@ const workoutSchema = mongoose.Schema({
   distanceUnit: String,
   notes: String,
   type: String,
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  completed: Boolean
 })
 
 const Workout = mongoose.model('Workout', workoutSchema);
@@ -23,8 +28,7 @@ const getSome = () => {
 }
 
 const addOne = (workout) => {
-  console.log(workout)
-  return Workout.updateOne({ "_id": workout._id }, workout, { upsert: true })
+  return Workout.create(workout)
     .then(result => {
       console.log(result);
       return result
@@ -34,4 +38,15 @@ const addOne = (workout) => {
     })
 }
 
-module.exports = { getSome, addOne };
+const modOne = (workout) => {
+  return Workout.findOneAndUpdate({_id: workout._id}, workout)
+  .then(result => {
+    console.log(result);
+    return result
+  })
+  .catch(err => {
+    console.log('Error:', err)
+  })
+}
+
+module.exports = { getSome, addOne, modOne };
