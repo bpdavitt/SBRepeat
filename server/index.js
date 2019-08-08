@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.send('Get Ready to Workout!');
 });
 
-app.post('/workouts', (req, res) => {
+app.post('/workouts/new', (req, res) => {
   db.addOne(req.body)
     .then((data) => {
       // console.log(data)

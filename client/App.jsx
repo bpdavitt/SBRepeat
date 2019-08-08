@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
-import Workouts from './components/Workouts.jsx'
+import Workouts from './components/Workouts.jsx';
+import CreateWorkout from './components/CreateWorkout.jsx'
 
 
 class App extends React.Component {
@@ -14,6 +15,32 @@ class App extends React.Component {
       processed: {}
     }
     this.workoutClickHandler = this.workoutClickHandler.bind(this);
+    this.creationClickHandler = this.creationClickHandler.bind(this);
+  }
+
+  creationClickHandler(e) {
+    e.preventDefault();
+    console.log(e.target)
+    const workoutData = e.target
+    const workout = {}
+    for (let i = 0; i < workoutData.length - 1; i++) {
+      workout[workoutData[i].name] = workoutData[i].value;
+    }
+    workout.completed.toLowerCase().includes('y') ? workout.completed = true : workout.completed = false;
+    console.log(workout);
+    axios.post('/workouts/new', workout)
+      .then(result => {
+        let added = result.data;
+        if (added.completed === true) {
+          this.setState({completed: [...this.state.completed, added]})
+        } else {
+          this.setState({planned: [...this.state.planned, added]})
+        }
+      })
+      .catch(err => {
+        console.log('Error on submission of new workout')
+      })
+    
   }
 
   workoutClickHandler(e, workout) {
@@ -63,6 +90,9 @@ class App extends React.Component {
       <Container>
         <Row id="banner">
           <div>SBRepeat has mounted</div>
+        </Row>
+        <Row id="create-row">
+          <CreateWorkout clickHandler={this.creationClickHandler}></CreateWorkout>
         </Row>
         <Row>
           <Col id="planned-col">Planned Workouts
