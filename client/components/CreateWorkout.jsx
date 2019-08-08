@@ -29,6 +29,7 @@ const CreateWorkout = (props) => {
         <label className="creation-label">Workout Completed?:
           <input type="text" name="completed" placeholder="Completed? (y/n)" className="creation-input"></input>
         </label>
+        <br/>
         <button type="submit">Add Workout</button>
       </form>
     </div>
