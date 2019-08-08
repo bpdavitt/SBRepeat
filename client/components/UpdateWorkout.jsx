@@ -22,7 +22,7 @@ const UpdateWorkout = (props) => {
         <label className="modal-label">Workout Duration:
           <input type="number" name="duration" placeholder="Duration (in minutes)" defaultValue={workout.duration} className="modal-input"></input>
         </label>
-        <label className="modal-label">Workout name:
+        <label className="modal-label">Workout Name:
           <input type="text" name="name" placeholder="Name of Workout" defaultValue={workout.name} className="modal-input"></input>
         </label>
         <label className="modal-label">Notes:

@@ -45,3 +45,11 @@
 .modal-input {
   display: block
 }
+
+.creation-label {
+  min-width: 100px;
+}
+
+.creation-input {
+  display: block
+}
