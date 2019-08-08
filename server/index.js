@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 app.post('/workouts/new', (req, res) => {
   db.addOne(req.body)
     .then((data) => {
-      // console.log(data)
       res.send(data)
     })
     .catch(() => res.end())
@@ -34,7 +33,6 @@ app.put('/workouts/:_id', (req, res) => {
   console.log(req.params)
   db.modOne(req.body)
     .then((data) => {
-      // console.log(data)
       res.send(data)
     })
     .catch(() => res.end())
@@ -44,7 +42,6 @@ app.delete('/workouts/:_id', (req, res) => {
   console.log(req.params._id)
   db.deleteOne(req.params._id)
     .then((data) => {
-      // console.log(data)
       res.send(`Object with id ${req.params._id} successfully deleted`)
     })
     .catch(() => res.end())

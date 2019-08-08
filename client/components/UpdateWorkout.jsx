@@ -4,7 +4,6 @@ const UpdateWorkout = (props) => {
   const { workout } = props;
   let date = new Date(workout.date);
   let dateStr = date.toLocaleDateString();
-  console.log('Showing details for:', workout)
   return (
     <div>
       <form onSubmit={(e) => { props.clickHandler(e) }} id="update-form">

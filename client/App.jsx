@@ -37,7 +37,6 @@ class App extends React.Component {
     if (!selectedCompleted) {
       for (let i = 0; i < planned.length; i ++) {
         if (planned[i]._id === selectedID) {
-          console.log('Gonna delete this bad boy!', selectedID);
           planned.splice(i,1)
           break;
         }
@@ -45,7 +44,6 @@ class App extends React.Component {
     } else {
       for (let i = 0; i < completed.length; i ++) {
         if (completed[i]._id === selectedID) {
-          console.log('Gonna delete this bad boy!', selectedID);
           completed.splice(i,1)
           break;
         }
@@ -53,7 +51,6 @@ class App extends React.Component {
     }
     axios.delete(`/workouts/${selectedID}`)
       .then(result => {
-        console.log(result.data)
         this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
       })
       .catch(err => {
@@ -66,15 +63,12 @@ class App extends React.Component {
     const updatedInfo = this.generateWorkoutFromForm(updateForm);
     const selectedWorkout = {...this.state.selected};
     const updatedWorkout = Object.assign(selectedWorkout, updatedInfo);
-    // console.log(this.state.selected)
-    // console.log(updatedWorkout);
     const planned = [...this.state.planned];
     const completed = [...this.state.completed];
     // Find workout BEFORE it was updated
     if (!this.state.selected.completed) {
       for (let i = 0; i < planned.length; i ++) {
         if (planned[i]._id === updatedWorkout._id) {
-          console.log('Updated workout found!', updatedWorkout._id);
           planned.splice(i,1)
           break;
         }
@@ -82,7 +76,6 @@ class App extends React.Component {
     } else {
       for (let i = 0; i < completed.length; i ++) {
         if (completed[i]._id === updatedWorkout._id) {
-          console.log('Updated workout found!', updatedWorkout._id);
           completed.splice(i,1)
           break;
         }
@@ -128,8 +121,6 @@ class App extends React.Component {
   }
 
   workoutClickHandler(e, workout) {
-    // console.log('You clicked a workout')
-    // console.log(workout)
     this.setState({modalOpen: true, selected: workout})
   }
 
