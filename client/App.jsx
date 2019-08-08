@@ -20,7 +20,6 @@ class App extends React.Component {
 
   creationClickHandler(e) {
     e.preventDefault();
-    console.log(e.target)
     const workoutData = e.target
     const workout = {}
     for (let i = 0; i < workoutData.length - 1; i++) {
@@ -28,7 +27,6 @@ class App extends React.Component {
       workoutData[i].value = '';
     }
     workout.completed.toLowerCase().includes('y') ? workout.completed = true : workout.completed = false;
-    console.log(workout);
     axios.post('/workouts/new', workout)
       .then(result => {
         let added = result.data;
@@ -74,7 +72,6 @@ class App extends React.Component {
   getData() {
     axios.get('/workouts')
       .then(result => {
-        console.log(result.data)
         this.processData(result.data);
       })
       .catch(err => {
@@ -90,7 +87,6 @@ class App extends React.Component {
     return (
       <Container>
         <Row id="banner">
-          <div>SBRepeat has mounted</div>
         </Row>
         <Row id="create-row">
           <CreateWorkout clickHandler={this.creationClickHandler}></CreateWorkout>
