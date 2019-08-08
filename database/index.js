@@ -39,14 +39,25 @@ const addOne = (workout) => {
 }
 
 const modOne = (workout) => {
-  return Workout.findOneAndUpdate({_id: workout._id}, workout)
-  .then(result => {
-    console.log(result);
-    return result
-  })
-  .catch(err => {
-    console.log('Error:', err)
-  })
+  return Workout.findOneAndUpdate({ _id: workout._id }, workout)
+    .then(result => {
+      console.log(result);
+      return result
+    })
+    .catch(err => {
+      console.log('Error:', err)
+    })
 }
 
-module.exports = { getSome, addOne, modOne };
+const deleteOne = (id) => {
+  return Workout.deleteOne({ _id: id })
+    .then(result => {
+      console.log(result);
+      return result
+    })
+    .catch(err => {
+      console.log('Error:', err)
+    })
+}
+
+module.exports = { getSome, addOne, modOne, deleteOne };

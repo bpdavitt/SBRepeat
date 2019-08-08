@@ -51,7 +51,14 @@ class App extends React.Component {
         }
       }
     }
-    this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
+    axios.delete(`/workouts/${selectedID}`)
+      .then(result => {
+        console.log(result.data)
+        this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
+      })
+      .catch(err => {
+        console.log('Error updating a workout', err)
+      })
   }
 
   updateWorkout() {

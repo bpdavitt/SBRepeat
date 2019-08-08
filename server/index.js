@@ -40,4 +40,14 @@ app.put('/workouts/:_id', (req, res) => {
     .catch(() => res.end())
 })
 
+app.delete('/workouts/:_id', (req, res) => {
+  console.log(req.params._id)
+  db.deleteOne(req.params._id)
+    .then((data) => {
+      // console.log(data)
+      res.send(`Object with id ${req.params._id} successfully deleted`)
+    })
+    .catch(() => res.end())
+})
+
 app.listen(PORT, () => console.log('SBRepeat server running on port', PORT))
