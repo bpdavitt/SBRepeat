@@ -171,11 +171,11 @@ class App extends React.Component {
         <Row>
           <Col id="planned-col">Planned Workouts
           <br></br>
-            <Workouts workouts={this.state.planned} clickHandler={this.workoutClickHandler}></Workouts>
+            <Workouts workouts={this.state.planned} clickHandler={this.workoutClickHandler} completed={false}></Workouts>
           </Col>
           <Col id="completed-col">Completed Workouts
           <br></br>
-            <Workouts workouts={this.state.completed} clickHandler={this.workoutClickHandler}></Workouts>
+            <Workouts workouts={this.state.completed} clickHandler={this.workoutClickHandler} completed={true}></Workouts>
           </Col>
 
         </Row>

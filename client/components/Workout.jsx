@@ -3,8 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 const Workout = (props) => {
   const { workout } = props;
-  let date = new Date(workout.date);
-  let dateStr = date.toLocaleDateString();
+  let dateStr = workout.date.toLocaleDateString();
   return (
     <Container className="workout" onClick={(e)=>{props.clickHandler(e, workout)}}>
       <Row>
