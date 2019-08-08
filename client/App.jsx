@@ -4,6 +4,7 @@ import { Container, Row, Col, Modal, Button } from 'react-bootstrap'
 import axios from 'axios';
 import Workouts from './components/Workouts.jsx';
 import CreateWorkout from './components/CreateWorkout.jsx'
+import UpdateWorkout from './components/UpdateWorkout.jsx';
 
 
 class App extends React.Component {
@@ -13,7 +14,8 @@ class App extends React.Component {
       completed: [],
       planned: [],
       processed: {},
-      modalOpen: false
+      modalOpen: false,
+      selected: {}
     }
     this.workoutClickHandler = this.workoutClickHandler.bind(this);
     this.creationClickHandler = this.creationClickHandler.bind(this);
@@ -50,7 +52,7 @@ class App extends React.Component {
   workoutClickHandler(e, workout) {
     console.log('You clicked a workout')
     console.log(workout)
-    this.setState({modalOpen: true})
+    this.setState({modalOpen: true, selected: workout})
   }
 
   processData(data) {
@@ -113,7 +115,7 @@ class App extends React.Component {
             <Modal.Title>Modal Heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>Selected workouts will be displayed here!
-            <CreateWorkout></CreateWorkout>
+            <UpdateWorkout workout={this.state.selected}></UpdateWorkout>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>

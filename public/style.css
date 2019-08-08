@@ -37,3 +37,11 @@
 .workout-image {
   max-width: 100px;
 }
+
+.modal-label {
+  min-width: 100px;
+}
+
+.modal-input {
+  display: block
+}
