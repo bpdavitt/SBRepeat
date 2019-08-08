@@ -41,6 +41,7 @@
 
 .modal-label {
   min-width: 100px;
+  padding: 5px;
 }
 
 .modal-input {
