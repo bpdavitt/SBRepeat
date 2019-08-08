@@ -23,7 +23,7 @@ const workoutSchema = mongoose.Schema({
 const Workout = mongoose.model('Workout', workoutSchema);
 
 const getSome = () => {
-  return Workout.find().limit(100)
+  return Workout.find().limit(200)
     .catch(() => { console.log('Error getting some products') })
 }
 
@@ -60,4 +60,14 @@ const deleteOne = (id) => {
     })
 }
 
-module.exports = { getSome, addOne, modOne, deleteOne };
+const bulkImport = (arr) => {
+  return Workout.insertMany(arr)
+    .then(result => {
+      return 'Something got done'
+    })
+    .catch(fail => {
+      return 'You messed up'
+    })
+}
+
+module.exports = { getSome, addOne, modOne, deleteOne, bulkImport };
