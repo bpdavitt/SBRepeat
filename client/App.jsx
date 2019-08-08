@@ -20,21 +20,61 @@ class App extends React.Component {
     this.workoutClickHandler = this.workoutClickHandler.bind(this);
     this.creationClickHandler = this.creationClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.updateWorkout = this.updateWorkout.bind(this);
   }
 
   closeModal() {
-    this.setState({ modalOpen: false })
+    this.setState({ modalOpen: false, selected: {} })
+  }
+
+  updateWorkout() {
+    const updateForm = document.getElementById('update-form');
+    const updatedInfo = this.generateWorkoutFromForm(updateForm);
+    const selectedWorkout = {...this.state.selected};
+    const updatedWorkout = Object.assign(selectedWorkout, updatedInfo);
+    // console.log(this.state.selected)
+    // console.log(updatedWorkout);
+    const planned = [...this.state.planned];
+    const completed = [...this.state.completed];
+    // Find workout BEFORE it was updated
+    if (!this.state.selected.completed) {
+      for (let i = 0; i < planned.length; i ++) {
+        if (planned[i]._id === updatedWorkout._id) {
+          console.log('Updated workout found!', updatedWorkout._id);
+          planned.splice(i,1)
+          break;
+        }
+      }
+    } else {
+      for (let i = 0; i < completed.length; i ++) {
+        if (completed[i]._id === updatedWorkout._id) {
+          console.log('Updated workout found!', updatedWorkout._id);
+          completed.splice(i,1)
+          break;
+        }
+      }
+    }
+
+    updatedWorkout.completed === true ? completed.push(updatedWorkout) : planned.push(updatedWorkout);
+    this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
+
+  }
+
+  //omitLast is to handle forms with a button; buttonless forms will use all child elements
+  generateWorkoutFromForm (form, omitLast = 0) {
+    const workout = {}
+    for (let i = 0; i < form.length - omitLast; i++) {
+      workout[form[i].name] = form[i].value;
+      form[i].value = '';
+    }
+    workout.completed.toLowerCase().includes('y') ? workout.completed = true : workout.completed = false;
+    return workout;
   }
 
   creationClickHandler(e) {
     e.preventDefault();
     const workoutData = e.target
-    const workout = {}
-    for (let i = 0; i < workoutData.length - 1; i++) {
-      workout[workoutData[i].name] = workoutData[i].value;
-      workoutData[i].value = '';
-    }
-    workout.completed.toLowerCase().includes('y') ? workout.completed = true : workout.completed = false;
+    const workout = this.generateWorkoutFromForm(workoutData, 1); //Omit last child as workoutData came from a form w/ a button as last child
     axios.post('/workouts/new', workout)
       .then(result => {
         let added = result.data;
@@ -50,8 +90,8 @@ class App extends React.Component {
   }
 
   workoutClickHandler(e, workout) {
-    console.log('You clicked a workout')
-    console.log(workout)
+    // console.log('You clicked a workout')
+    // console.log(workout)
     this.setState({modalOpen: true, selected: workout})
   }
 
@@ -120,7 +160,7 @@ class App extends React.Component {
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>
             <Button onClick={this.closeModal}>Delete</Button>
-            <Button onClick={this.closeModal}>Update</Button>
+            <Button onClick={this.updateWorkout}>Update</Button>
           </Modal.Footer>
         </Modal>
       </Container>

@@ -7,7 +7,7 @@ const UpdateWorkout = (props) => {
   console.log('Showing details for:', workout)
   return (
     <div>
-      <form onSubmit={(e) => { props.clickHandler(e) }}>
+      <form onSubmit={(e) => { props.clickHandler(e) }} id="update-form">
         <label className="modal-label">Type of Workout:
           <input type="text" name="type" placeholder="Workout type (swim, bike, run)" defaultValue={workout.type} className="modal-input"></input>
         </label>
