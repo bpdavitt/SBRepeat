@@ -163,9 +163,10 @@ class App extends React.Component {
   render() {
     return (
       <Container>
-        <Row id="banner">
-        </Row>
-        <Row id="create-row">
+        <Row id="create-row" className="justify-content-md-center">
+          <Row className="justify-content-md-center">
+            <h3>Enter a Workout</h3>
+          </Row>
           <CreateWorkout clickHandler={this.creationClickHandler}></CreateWorkout>
         </Row>
         <Row>
@@ -180,16 +181,17 @@ class App extends React.Component {
 
         </Row>
         <Modal show={this.state.modalOpen} onHide={this.closeModal} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal Heading</Modal.Title>
+          <Modal.Header id="update-header">
+            <Modal.Title >Update or Delete a Workout</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Selected workouts will be displayed here!
+          <Modal.Body>
+            <h5>Update Your Workout:</h5>
             <UpdateWorkout workout={this.state.selected}></UpdateWorkout>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeModal}>Close</Button>
-            <Button onClick={this.deleteWorkout}>Delete</Button>
-            <Button onClick={this.updateWorkout}>Update</Button>
+            <Button onClick={this.closeModal} variant="dark">Close</Button>
+            <Button onClick={this.deleteWorkout} variant="danger">Delete</Button>
+            <Button onClick={this.updateWorkout} variant="dark">Update</Button>
           </Modal.Footer>
         </Modal>
       </Container>
