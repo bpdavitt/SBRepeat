@@ -5,7 +5,7 @@ const CreateWorkout = (props) => {
   return(
     <div>
       <form onSubmit={(e)=>{props.clickHandler(e)}}>
-        <input type="text" name="type" placeholder="Type of workout"></input>
+        <input type="text" name="type" placeholder="Workout type (swim, bike, run)"></input>
         <input type="text" name="date" placeholder="MM/DD/YYYY"></input>
         <input type="number" name="distance" placeholder="Distance"></input>
         <input type="text" name="distanceUnit" placeholder="(miles, yards, etc)"></input>

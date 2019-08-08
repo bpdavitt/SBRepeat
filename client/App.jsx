@@ -25,6 +25,7 @@ class App extends React.Component {
     const workout = {}
     for (let i = 0; i < workoutData.length - 1; i++) {
       workout[workoutData[i].name] = workoutData[i].value;
+      workoutData[i].value = '';
     }
     workout.completed.toLowerCase().includes('y') ? workout.completed = true : workout.completed = false;
     console.log(workout);
