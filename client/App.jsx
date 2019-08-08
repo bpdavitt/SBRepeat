@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Modal, Button } from 'react-bootstrap'
 import axios from 'axios';
 import Workouts from './components/Workouts.jsx';
 import CreateWorkout from './components/CreateWorkout.jsx'
@@ -12,10 +12,16 @@ class App extends React.Component {
     this.state = {
       completed: [],
       planned: [],
-      processed: {}
+      processed: {},
+      modalOpen: false
     }
     this.workoutClickHandler = this.workoutClickHandler.bind(this);
     this.creationClickHandler = this.creationClickHandler.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  closeModal() {
+    this.setState({ modalOpen: false })
   }
 
   creationClickHandler(e) {
@@ -31,20 +37,20 @@ class App extends React.Component {
       .then(result => {
         let added = result.data;
         if (added.completed === true) {
-          this.setState({completed: [...this.state.completed, added]})
+          this.setState({ completed: [...this.state.completed, added] });
         } else {
-          this.setState({planned: [...this.state.planned, added]})
+          this.setState({ planned: [...this.state.planned, added] });
         }
       })
       .catch(err => {
-        console.log('Error on submission of new workout')
+        console.log('Error on submission of new workout');
       })
-    
   }
 
   workoutClickHandler(e, workout) {
     console.log('You clicked a workout')
     console.log(workout)
+    this.setState({modalOpen: true})
   }
 
   processData(data) {
@@ -102,6 +108,19 @@ class App extends React.Component {
           </Col>
 
         </Row>
+        <Modal show={this.state.modalOpen} onHide={this.closeModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal Heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Selected workouts will be displayed here!
+            <CreateWorkout></CreateWorkout>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeModal}>Close</Button>
+            <Button onClick={this.closeModal}>Delete</Button>
+            <Button onClick={this.closeModal}>Update</Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     )
   }
