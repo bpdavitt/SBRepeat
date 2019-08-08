@@ -54,10 +54,14 @@ class App extends React.Component {
         }
       }
     }
-
     updatedWorkout.completed === true ? completed.push(updatedWorkout) : planned.push(updatedWorkout);
-    this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
-
+    axios.put(`/workouts/${updatedWorkout._id}`, updatedWorkout)
+      .then(result => {
+        this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
+      })
+      .catch(err => {
+        console.log('Error updating a workout', err)
+      })
   }
 
   //omitLast is to handle forms with a button; buttonless forms will use all child elements
