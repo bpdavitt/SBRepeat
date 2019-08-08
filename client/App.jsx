@@ -21,10 +21,37 @@ class App extends React.Component {
     this.creationClickHandler = this.creationClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.updateWorkout = this.updateWorkout.bind(this);
+    this.deleteWorkout = this.deleteWorkout.bind(this);
   }
 
   closeModal() {
     this.setState({ modalOpen: false, selected: {} })
+  }
+
+  deleteWorkout() {
+    const selectedID = this.state.selected._id;
+    const selectedCompleted = this.state.selected.completed
+    const planned = [...this.state.planned];
+    const completed = [...this.state.completed];
+
+    if (!selectedCompleted) {
+      for (let i = 0; i < planned.length; i ++) {
+        if (planned[i]._id === selectedID) {
+          console.log('Gonna delete this bad boy!', selectedID);
+          planned.splice(i,1)
+          break;
+        }
+      }
+    } else {
+      for (let i = 0; i < completed.length; i ++) {
+        if (completed[i]._id === selectedID) {
+          console.log('Gonna delete this bad boy!', selectedID);
+          completed.splice(i,1)
+          break;
+        }
+      }
+    }
+    this.setState({ modalOpen: false, selected: {}, planned: planned, completed: completed })
   }
 
   updateWorkout() {
@@ -163,7 +190,7 @@ class App extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>
-            <Button onClick={this.closeModal}>Delete</Button>
+            <Button onClick={this.deleteWorkout}>Delete</Button>
             <Button onClick={this.updateWorkout}>Update</Button>
           </Modal.Footer>
         </Modal>
