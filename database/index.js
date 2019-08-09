@@ -23,7 +23,7 @@ const workoutSchema = mongoose.Schema({
 const Workout = mongoose.model('Workout', workoutSchema);
 
 const getSome = () => {
-  return Workout.find().limit(200)
+  return Workout.find().limit(500)
     .catch(() => { console.log('Error getting some products') })
 }
 
